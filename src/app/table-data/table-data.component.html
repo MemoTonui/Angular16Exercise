@@ -1,0 +1,95 @@
+<div class="overflow-x-auto font-poppins m-5 shadow-md sm:rounded-lg">
+  <div class="flex justify-between mx-2 my-4 items-center">
+    <div class="pb-4 bg-white dark:bg-gray-900 p-5">
+      <label for="table-search" class="sr-only">Search</label>
+      <div class="relative mt-1">
+        <input
+          type="text"
+          id="table-search"
+          [formControl]="input"
+          class="block p-2 pl-5 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Enter region to view... eg Africa"
+        />
+      </div>
+    </div>
+    <div>
+      <a
+        (click)="getCountriesList()"
+        class="font-medium bg-blue-900 cursor-pointer px-5 py-2 text-gray-50 hover:bg-blue-50 border-2 hover:text-blue-900 hover:border-2 hover:border-solid hover:border-blue-900 text-xs rounded-full"
+        >View All Countries</a
+      >
+    </div>
+  </div>
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="p-4">
+          <div class="flex items-center">
+            <input
+              id="checkbox-all-search"
+              type="checkbox"
+              [formControl]="input"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label for="checkbox-all-search" class="sr-only">checkbox</label>
+          </div>
+        </th>
+        <th scope="col" class="px-6 py-3">Flag</th>
+        <th scope="col" class="px-6 py-3">Country Name</th>
+        <th scope="col" class="px-6 py-3">Capital</th>
+        <th scope="col" class="px-6 py-3">Region</th>
+
+        <th scope="col" class="px-6 py-3">Population</th>
+        <th scope="col" class="px-6 py-3">Continent</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let country of countriesList$ | async as countriesList;
+          else: loading
+        "
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+      >
+        <td class="w-4 p-4">
+          <div class="flex items-center">
+            <input
+              id="checkbox-table-search-1"
+              type="checkbox"
+              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            />
+            <label for="checkbox-table-search-1" class="sr-only"
+              >checkbox</label
+            >
+          </div>
+        </td>
+        <th
+          scope="row"
+          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        >
+          <img [src]="country.flags.png" [alt]="country.flags.alt" />
+        </th>
+        <td class="px-6 py-4">{{ country.name.common }}</td>
+        <td
+          class="px-6 py-4"
+          *ngFor="let cap of country.capital; let i = index"
+        >
+          {{ cap }}
+        </td>
+        <td class="px-6 py-4">
+          {{ country.region }}
+        </td>
+
+        <td class="px-6 py-4">{{ country.population }}</td>
+        <td
+          class="px-6 py-4"
+          *ngFor="let cont of country.continents; let i = index"
+        >
+          {{ cont }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
