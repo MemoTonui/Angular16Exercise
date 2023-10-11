@@ -22,11 +22,12 @@ export class TableDataComponent implements OnInit {
   // countriesList$ = this.countriesService.getCountries();
   public input = new FormControl('');
   public countriesList$!: Observable<Countries[]>;
+  pagination: number = 10;
   ngOnInit(): void {
     if (this.input.valueChanges) {
       this.getSearch();
     } else {
-      this.countriesService.getCountries();
+      this.countriesService.getCountries(this.pagination);
     }
   }
 
@@ -38,13 +39,18 @@ export class TableDataComponent implements OnInit {
           console.log('INPUT' + this.input.value);
           return this.searchService.getSearchCountries(this.input.value);
         }
-        return this.countriesService.getCountries();
+        return this.countriesService.getCountries(this.pagination);
       })
     );
   }
 
   getCountriesList() {
-    this.countriesList$ = this.countriesService.getCountries();
+    this.countriesList$ = this.countriesService.getCountries(this.pagination);
     return this.countriesList$;
+  }
+  renderPage(event: number) {
+    this.pagination = event;
+    console.log("Pagination"+ this.pagination)
+    this.getSearch();
   }
 }

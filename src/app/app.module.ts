@@ -7,6 +7,7 @@ import { TableDataComponent } from './table-data/table-data.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TableDataService } from './table-data/table-data.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [AppComponent, TableDataComponent],
@@ -15,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
   ],
   providers: [TableDataService],
   bootstrap: [AppComponent],
